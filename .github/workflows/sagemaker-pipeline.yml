@@ -1,0 +1,14 @@
+name: Amazon sagemaker endtoend pipeline
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  trigger-sagemaker-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code Repositories
+      uses: actions/Checkout@v4

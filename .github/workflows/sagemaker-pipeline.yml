@@ -3,8 +3,8 @@ name: Amazon sagemaker endtoend pipeline
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+      - main # triggers when code is pushed to main branch
+  workflow_dispatch: # for manual trigger
 
 jobs:
   trigger-sagemaker-pipeline:
@@ -12,3 +12,9 @@ jobs:
     steps:
     - name: Checkout Code Repositories
       uses: actions/Checkout@v4
+    - name: Set up python environment
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+        cache: 'pip'
+

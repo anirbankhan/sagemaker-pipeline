@@ -30,5 +30,12 @@ jobs:
       run: |
         python -m pip install --upgrade pip setuptools wheel
         pip install -r requirements.txt
+    
+    - name: execute the sagemaker pipeline script
+      env:
+        AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
+        AWS_REGION: ${{ secrets.AWS_REGION }}
+      run: |
+        python sagemaker-pipeline.py
 
 

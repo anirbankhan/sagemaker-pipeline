@@ -1,6 +1,6 @@
+# This pipeline is for for local execution
 import boto3
 import sagemaker
-import os
 from sagemaker.workflow.pipeline_context import PipelineSession
 from sagemaker.sklearn.estimator import SKLearn
 from sagemaker.workflow.steps import TrainingStep, ProcessingStep
@@ -21,19 +21,14 @@ from sagemaker.workflow.functions import Join
 
 
 # -------------------------------------------------------------
-# Github Actions CONNECTIVITY CONFIGURATION
+# LOCAL MACHINE CONNECTIVITY CONFIGURATION
 # -------------------------------------------------------------
-# role_arn = os.environ.get('SAGEMAKER-ROLE-ARN')
-region = os.environ.get('AWS_REGION')
-role = os.environ.get('AWS_ROLE_ARN')
-
-# boto_session = boto3.Session(profile_name="default")
-boto_session = boto3.Session(region_name=region)
+boto_session = boto3.Session(profile_name="default")
 aws_region = boto_session.region_name
 
 pipeline_session = PipelineSession(boto_session=boto_session)
 
-# role = "arn:aws:iam::937387180258:role/service-role/SageMaker-ExecutionRole-20260824T234194"
+role = "arn:aws:iam::937387180258:role/service-role/SageMaker-ExecutionRole-20260824T234194"
 
 instance_type = "ml.c4.xlarge"
 framework_version = "1.2-1"
@@ -231,7 +226,7 @@ pipeline = Pipeline(
 pipeline.upsert(role_arn=role)
 execution = pipeline.start()
 print(f"Pipeline execution started : {execution.arn}")
-# execution.wait()
+execution.wait()
 
 # Extract the auto-generated model asset URI from completed execution
 # steps = execution.list_steps()

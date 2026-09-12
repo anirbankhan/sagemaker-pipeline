@@ -5,11 +5,11 @@ from sagemaker.sklearn.model import SKLearnModel
 # 1. Initialize sessions
 boto_session = boto3.Session()
 sagemaker_session = sagemaker.Session(boto_session=boto_session)
-role = "arn:aws:iam::937387180258:role/service-role/SageMaker-ExecutionRole-20260818T000579"
+role = "arn:aws:iam::937387180258:role/service-role/AmazonSageMaker-ExecutionRole-20260912T100550"
 
 # approval_status - PendingManualApproval
 # 2. Define the Model Package ARN from your Registry
-MODEL_PACKAGE_ARN = "arn:aws:sagemaker:ap-south-1:937387180258:model-package/IrisClassifierGroup/3"
+MODEL_PACKAGE_ARN = "arn:aws:sagemaker:ap-south-1:937387180258:model-package/IrisClassifierGroup/7"
 
 # 3. Query the Model Registry via boto3 to extract the hidden container and artifact parameters
 sm_client = boto_session.client("sagemaker")

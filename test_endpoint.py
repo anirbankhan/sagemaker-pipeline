@@ -14,7 +14,7 @@ role = "arn:aws:iam::937387180258:role/service-role/SageMaker-ExecutionRole-2026
 # MODEL_PACKAGE_ARN = "arn:aws:sagemaker:ap-south-1:937387180258:model-package/IrisClassifierGroup/3"
 
 # 3. Query the Model Registry via boto3 to extract the hidden container and artifact parameters
-sm_client = boto_session.client("sagemaker")
+sm_client = boto_session.client("sagemaker-runtime")
 
 # 2. Configure endpoint variables
 ENDPOINT_NAME = "sagemaker-scikit-learn-2026-09-12-18-23-35-921"

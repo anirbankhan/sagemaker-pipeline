@@ -1,0 +1,39 @@
+name: SageMaker CD (Poll Registry & Deploy)
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Automatically runs every hour
+  workflow_dispatch: # Allows manual trigger click in GitHub UI
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  check-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+
+      - name: install runtime requirements
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          pip install -r requirements.txt
+
+      - name: configure AWS cloud credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Evaluate Registry and Deploy
+        run: |
+          python test_endpoint.py

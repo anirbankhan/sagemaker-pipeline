@@ -1,8 +1,8 @@
 name: SageMaker CD (Poll Registry & Deploy)
 
 on:
-  schedule:
-    - cron: '0 * * * *' # Automatically runs every hour
+  # schedule:
+  #   - cron: '0 * * * *' # Automatically runs every hour
   workflow_dispatch: # Allows manual trigger click in GitHub UI
 
 permissions:
